@@ -1,17 +1,12 @@
 ENTRY(_start)
 
 SECTIONS {
-    . = 1M;
-    .text : ALIGN(4K){
-        KEEP(*(.multiboot))
-        *(.text)
-    }
-
-    .rodata : ALIGN(4K){
-        *(.rodata)
-    }
-
-    .data : ALIGN(4K){
-        *(.data)
-    }
+    .text.boot : {*(.text.boot)}
+    .text : {*(.text)}
+    .rodata : {*(.rodata)}
+    .data : {*(.data)}
+    . = ALIGN(0x8);
+    bss_begin = .;
+    .bss : {*(.bss*)}
+    bss_end = .;
 }
